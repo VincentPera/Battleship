@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author : Matthieu Le Boucher
+ * @author Matthieu Le Boucher
  */
 public class Player {
     /**

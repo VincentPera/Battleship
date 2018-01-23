@@ -6,7 +6,7 @@ import Game.Ship.Ship;
 import java.util.stream.IntStream;
 
 /**
- * @author : Matthieu Le Boucher
+ * @author Matthieu Le Boucher
  */
 public class BattleshipBoard {
     /**

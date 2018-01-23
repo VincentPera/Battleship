@@ -1,7 +1,7 @@
 package Game.Ship;
 
 /**
- * @author : Matthieu Le Boucher
+ * @author Matthieu Le Boucher
  */
 public class PlaneCarrier extends Ship {
     public PlaneCarrier(Orientation orientation) {

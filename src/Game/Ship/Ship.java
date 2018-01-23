@@ -3,7 +3,7 @@ package Game.Ship;
 import Game.Ship.Exception.InvalidMoveException;
 
 /**
- * @author : Matthieu Le Boucher
+ * @author Matthieu Le Boucher
  */
 public abstract class Ship {
     /**

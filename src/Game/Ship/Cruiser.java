@@ -1,7 +1,7 @@
 package Game.Ship;
 
 /**
- * @author : Matthieu Le Boucher
+ * @author Matthieu Le Boucher
  */
 public class Cruiser extends Ship {
     public Cruiser(Orientation orientation) {
