@@ -48,9 +48,10 @@ public class BattleshipBoard {
             throw new InvalidMoveException();
 
         // If this is a valid position, place the ship along the row or column with respect to its orientation.
-        IntStream.range(0, ship.getLength())
-                .forEach(ship.getOrientation() == Ship.Orientation.HORIZONTAL
+        IntStream.range(0, ship.getLength()).forEach(
+                ship.getOrientation() == Ship.Orientation.HORIZONTAL
                         ? i -> this.grid[x + i][y] = ship
-                        : i -> this.grid[x][y + i] = ship);
+                        : i -> this.grid[x][y + i] = ship
+        );
     }
 }
