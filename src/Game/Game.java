@@ -17,7 +17,7 @@ public class Game {
         players[0] = new Player("Matt", new BattleshipBoard(BOARD_SIZE));
         players[1] = new Player("Bot", new BattleshipBoard(BOARD_SIZE));
 
-        assert players.length == PLAYERS_AMOUNT;
+        assert players.length == PLAYERS_AMOUNT : "Some players were not initialized.";
 
         // Game loop setup.
         boolean gameOver = false;
