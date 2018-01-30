@@ -1,5 +1,6 @@
 package Game;
 
+import Game.Board.BattleshipBoard;
 import Game.Ship.PlaneCarrier;
 import Game.Ship.Ship;
 
@@ -20,8 +21,14 @@ public class Player {
      */
     private String name;
 
-    public Player(String name) {
+    /**
+     * The board on which the player is playing.
+     */
+    private BattleshipBoard board;
+
+    public Player(String name, BattleshipBoard board) {
         this.name = name;
+        this.board = board;
 
         this.ships = new ArrayList<>();
         this.ships.add(new PlaneCarrier(Ship.Orientation.VERTICAL));
@@ -36,5 +43,9 @@ public class Player {
 
     public List<Ship> getShips() {
         return ships;
+    }
+
+    public BattleshipBoard getBoard() {
+        return board;
     }
 }

@@ -1,5 +1,6 @@
 package Game;
 
+import Game.Board.BattleshipBoard;
 import Game.Ship.Ship;
 
 /**
@@ -12,11 +13,9 @@ public class Game {
     public static void main(String[] args) {
         Player[] players = new Player[PLAYERS_AMOUNT];
 
-        // Todo: setup the game boards.
-
         // Initialize players list.
-        players[0] = new Player("Matt");
-        players[1] = new Player("Bot");
+        players[0] = new Player("Matt", new BattleshipBoard(BOARD_SIZE));
+        players[1] = new Player("Bot", new BattleshipBoard(BOARD_SIZE));
 
         assert players.length == PLAYERS_AMOUNT;
 
