@@ -1,3 +1,5 @@
+package Game;
+
 import Game.Ship.PlaneCarrier;
 import Game.Ship.Ship;
 
@@ -30,5 +32,9 @@ public class Player {
      */
     public String getName() {
         return name;
+    }
+
+    public List<Ship> getShips() {
+        return ships;
     }
 }
