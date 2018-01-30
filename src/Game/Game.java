@@ -6,6 +6,7 @@ import Game.Ship.Ship;
  * @author Matthieu Le Boucher
  */
 public class Game {
+    private static final int BOARD_SIZE = 10;
     private static final int PLAYERS_AMOUNT = 2;
 
     public static void main(String[] args) {

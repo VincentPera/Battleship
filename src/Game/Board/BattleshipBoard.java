@@ -12,15 +12,16 @@ public class BattleshipBoard {
     /**
      * The size of the game board.
      */
-    private final static int GRID_SIZE = 10;
+    private int gridSize = 10;
 
     /**
      * The grid two-dimensional grid of the board.
      */
     private Ship[][] grid;
 
-    public BattleshipBoard() {
-        this.grid = new Ship[GRID_SIZE][GRID_SIZE];
+    public BattleshipBoard(int gridSize) {
+        this.gridSize = gridSize;
+        this.grid = new Ship[gridSize][gridSize];
     }
 
     /**
@@ -32,8 +33,8 @@ public class BattleshipBoard {
      * @throws InvalidMoveException
      */
     public void placeShipAt(Ship ship, int x, int y) throws InvalidMoveException {
-        boolean isWithinGrid = x >= 0 && x <= GRID_SIZE - ship.getLength()
-                && y >= 0 && y <= GRID_SIZE - ship.getLength();
+        boolean isWithinGrid = x >= 0 && x <= gridSize - ship.getLength()
+                && y >= 0 && y <= gridSize - ship.getLength();
 
         // Check for collision with another ship.
         boolean doesCollide = false;
