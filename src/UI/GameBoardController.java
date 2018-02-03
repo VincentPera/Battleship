@@ -1,12 +1,18 @@
 package UI;
 
+import Game.Ship.Ship;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.RowConstraints;
 
 /**
  * @author : Matthieu Le Boucher
@@ -16,7 +22,13 @@ public class GameBoardController {
     private Label errorLabel;
 
     @FXML
+    private Label currentPlayer;
+
+    @FXML
     private GridPane gameBoard;
+
+    @FXML
+    private ListView<Ship> shipsList;
 
     private BattleshipPlus mainApp;
 
@@ -35,7 +47,18 @@ public class GameBoardController {
      */
     @FXML
     private void initialize() {
+        shipsList.setCellFactory(param -> new ListCell<Ship>() {
+            @Override
+            protected void updateItem(Ship ship, boolean empty) {
+                super.updateItem(ship, empty);
 
+                if (empty || ship == null) {
+                    setText(null);
+                } else {
+                    setText(ship.getClass().getName() + " (" + ship.getLength() + " cases)");
+                }
+            }
+        });
     }
 
     public void setUpBoard() {
@@ -56,14 +79,21 @@ public class GameBoardController {
             gameBoard.add(new Label(Integer.toString(i)), i, 0);
             gameBoard.add(new Label(Character.toString((char) ((char) 64 + i))), 0, i);
         }
+
+        refreshGameBoard();
     }
 
     private void refreshGameBoard() {
+        currentPlayer.setText(mainApp.getGame().getCurrentPlayer().getName());
+
         for (int i = 1; i < mainApp.getGame().getBoardSize(); i++) {
             for (int j = 1; j < mainApp.getGame().getBoardSize(); j++) {
                 addPane(i, j);
             }
         }
+
+        shipsList.setItems(mainApp.getGame().getCurrentPlayer().getShips());
+
     }
 
     private void addPane(int colIndex, int rowIndex) {

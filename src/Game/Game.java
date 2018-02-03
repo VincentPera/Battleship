@@ -14,12 +14,15 @@ public class Game {
     private boolean gameOver = false;
     private boolean gameStarted = false;
 
+    private Player[] players;
+    public int currentPlayerID = 0;
+
+
     public Game(String... playerNames) throws InvalidAmountOfPlayersException {
         if(playerNames.length != PLAYERS_AMOUNT)
             throw new InvalidAmountOfPlayersException();
 
-
-        Player[] players = new Player[PLAYERS_AMOUNT];
+        players = new Player[PLAYERS_AMOUNT];
 
         // Initialize players list.
         for (int i = 0; i < PLAYERS_AMOUNT; i++) {
@@ -27,7 +30,6 @@ public class Game {
         }
 
         // Game loop setup.
-        int currentPlayerID = 0;
 
         // Setup turn to allow players to positionate their ships.
         for (int i = 0; i < players.length; i++) {
@@ -42,6 +44,10 @@ public class Game {
             // Update current player ID to next player.
             currentPlayerID = (currentPlayerID + 1) % PLAYERS_AMOUNT;
         }
+    }
+
+    public Player getCurrentPlayer() {
+        return players[currentPlayerID];
     }
 
     public int getBoardSize() {

@@ -5,9 +5,8 @@ import Game.Ship.PlaneCarrier;
 import Game.Ship.Ship;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-
-import java.util.ArrayList;
-import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * @author Matthieu Le Boucher
@@ -16,7 +15,7 @@ public class Player {
     /**
      * List of the ships owned by the player.
      */
-    private List<Ship> ships;
+    private ObservableList<Ship> ships;
 
     /**
      * The player's name.
@@ -32,7 +31,7 @@ public class Player {
         this.name = new SimpleStringProperty(name);
         this.board = board;
 
-        this.ships = new ArrayList<>();
+        this.ships = FXCollections.observableArrayList();
         this.ships.add(new PlaneCarrier(Ship.Orientation.VERTICAL));
     }
 
@@ -51,7 +50,7 @@ public class Player {
         this.name.set(name);
     }
 
-    public List<Ship> getShips() {
+    public ObservableList<Ship> getShips() {
         return ships;
     }
 
