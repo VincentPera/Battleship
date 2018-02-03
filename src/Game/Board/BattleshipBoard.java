@@ -36,11 +36,11 @@ public class BattleshipBoard {
 
         boolean isWithinGrid;
         if(ship.getOrientation() == Ship.Orientation.VERTICAL){
-            isWithinGrid = x >= 0 && x <= gridSize
-                    && y >= 0 && y <= gridSize - ship.getLength();
+            isWithinGrid = x >= 0 && x < gridSize
+                    && y >= 0 && y < gridSize - ship.getLength();
         }else{
-            isWithinGrid = x >= 0 && x <= gridSize - ship.getLength()
-                    && y >= 0 && y <= gridSize;
+            isWithinGrid = x >= 0 && x < gridSize - ship.getLength()
+                    && y >= 0 && y < gridSize;
         }
 
         // Check for collision with another ship.
