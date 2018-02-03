@@ -33,8 +33,15 @@ public class BattleshipBoard {
      * @throws InvalidMoveException
      */
     public void placeShipAt(Ship ship, int x, int y) throws InvalidMoveException {
-        boolean isWithinGrid = x >= 0 && x <= gridSize - ship.getLength()
-                && y >= 0 && y <= gridSize - ship.getLength();
+
+        boolean isWithinGrid;
+        if(ship.getOrientation() == Ship.Orientation.VERTICAL){
+            isWithinGrid = x >= 0 && x <= gridSize
+                    && y >= 0 && y <= gridSize - ship.getLength();
+        }else{
+            isWithinGrid = x >= 0 && x <= gridSize - ship.getLength()
+                    && y >= 0 && y <= gridSize;
+        }
 
         // Check for collision with another ship.
         boolean doesCollide = false;
