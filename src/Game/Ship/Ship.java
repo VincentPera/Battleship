@@ -67,6 +67,10 @@ public abstract class Ship {
         return orientation;
     }
 
+    public void setOrientation(Orientation orientation) {
+        this.orientation = orientation;
+    }
+
     public boolean canAttack(int x, int y) {
         if(((this.orientation == Orientation.VERTICAL) && this.x == x)||((this.orientation == Orientation.HORIZONTAL) && this.y == y)){     // Case when the target is aligned with our ship
             int alignedDistance = this.orientation == Orientation.VERTICAL ? Math.abs(this.y - y) : Math.abs(this.x - x);
