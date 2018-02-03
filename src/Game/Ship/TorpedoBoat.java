@@ -6,6 +6,7 @@ package Game.Ship;
 public class TorpedoBoat extends Ship {
     public TorpedoBoat(Orientation orientation) {
         this.orientation = orientation;
+        this.name = "Torpedo Boat";
         this.length = 2;
         this.currentHealth = 2;
         this.range = 5;

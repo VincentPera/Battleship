@@ -30,9 +30,7 @@ public class Player {
     public Player(String name, BattleshipBoard board) {
         this.name = new SimpleStringProperty(name);
         this.board = board;
-
         this.ships = FXCollections.observableArrayList();
-        this.ships.add(new PlaneCarrier(Ship.Orientation.VERTICAL));
     }
 
     /**
@@ -44,6 +42,10 @@ public class Player {
 
     public StringProperty nameProperty() {
         return name;
+    }
+
+    public void addShip(Ship ship){
+        this.ships.add(ship);
     }
 
     public void setName(String name) {

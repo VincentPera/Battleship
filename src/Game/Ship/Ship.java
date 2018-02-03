@@ -9,7 +9,7 @@ public abstract class Ship {
     /**
      * Enumeration of the possible orientations of ships.
      */
-    public enum Orientation { VERTICAL, HORIZONTAL };
+    public enum Orientation { VERTICAL, HORIZONTAL }
 
     /**
      * Length of the ship.

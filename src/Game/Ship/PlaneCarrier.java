@@ -6,6 +6,7 @@ package Game.Ship;
 public class PlaneCarrier extends Ship {
     public PlaneCarrier(Orientation orientation) {
         this.orientation = orientation;
+        this.name = "Plane Carrier";
         this.length = 5;
         this.currentHealth = 5;
         this.range = 2;
