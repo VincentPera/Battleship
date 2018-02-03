@@ -38,10 +38,13 @@ public class BattleshipBoard {
         if(ship.getOrientation() == Ship.Orientation.VERTICAL){
             isWithinGrid = x >= 0 && x < gridSize
                     && y >= 0 && y < gridSize - ship.getLength();
-        }else{
+        } else{
             isWithinGrid = x >= 0 && x < gridSize - ship.getLength()
                     && y >= 0 && y < gridSize;
         }
+
+        if(!isWithinGrid)
+            throw new InvalidMoveException();
 
         // Check for collision with another ship.
         boolean doesCollide = false;
@@ -52,7 +55,7 @@ public class BattleshipBoard {
                         : i -> this.grid[x][y + i] != null && this.grid[x][y + i] != ship
         );
 
-        if(!isWithinGrid || doesCollide)
+        if(doesCollide)
             throw new InvalidMoveException();
 
         // If this is a valid position, place the ship along the row or column with respect to its orientation.
