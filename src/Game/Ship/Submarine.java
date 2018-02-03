@@ -11,5 +11,6 @@ public class Submarine extends Ship {
         this.currentHealth = 3;
         this.range = 4;
         this.name = "Sous-marin";
+        this.color = "#fff000";
     }
 }

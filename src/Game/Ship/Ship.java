@@ -38,6 +38,11 @@ public abstract class Ship {
     protected String name;
 
     /**
+     * The color of the ship in hexadecimal format.
+     */
+    protected String color = "#353DFF";
+
+    /**
      * Current position of the ship.
      */
     public int x, y;
@@ -126,5 +131,9 @@ public abstract class Ship {
 
     public String getName() {
         return name;
+    }
+
+    public String getColor() {
+        return color;
     }
 }
