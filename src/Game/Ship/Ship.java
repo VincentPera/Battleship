@@ -63,8 +63,31 @@ public abstract class Ship {
     }
 
     public boolean canAttack(int x, int y) {
-        // Todo: implement this logic.
-        return false;
+        if(((this.orientation == Orientation.VERTICAL) && this.x == x)||((this.orientation == Orientation.HORIZONTAL) && this.y == y)){     // Case when the target is aligned with our ship
+            int alignedDistance = this.orientation == Orientation.VERTICAL ? Math.abs(this.y - y) : Math.abs(this.x - x);
+            return (alignedDistance<=this.getRange());
+        }else{                                                                                                                              // When our target is on our side
+            if(this.getOrientation() == Orientation.HORIZONTAL){
+                int maxX = this.x + this.getLength();
+                if((this.x <= x)&&(x <= maxX)){                                                                                             // if our target is on the length of the ship
+                    int maxY = this.y + this.getRange();
+                    int minY = this.y - this.getRange();
+                    if((minY <= y)&&(y <= maxY)){                                                                                           // if our target is close enough
+                        return true;
+                    }
+                }
+            }else{                                                                                                                          // same for VERTICAL case
+                int maxY = this.y + this.getLength();
+                if((this.y <= y)&&(y <= maxY)){
+                    int maxX = this.x + this.getRange();
+                    int minX = this.x - this.getRange();
+                    if((minX <= x)&&(x <= maxX)){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;                                                                                                                       // Default case
     }
 
     /**
