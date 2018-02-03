@@ -251,8 +251,13 @@ public class GameBoardController {
 
     @FXML
     private void endTurnButtonClicked(ActionEvent f) {
-        if(!mainApp.getGame().getCurrentPlayer().allShipsPlaced())
+        if(!mainApp.getGame().getCurrentPlayer().allShipsPlaced()){
             errorLabel.setText("Vous devez placer tous vos navires.");
+        }else{
+            mainApp.getGame().changePlayer();
+            refreshGameBoard();
+        }
+
     }
 
     @FXML

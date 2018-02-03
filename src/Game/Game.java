@@ -116,12 +116,16 @@ public class Game {
         while(isGameStarted() && !gameOver) {
             // Ask for
             // Update current player ID to next player.
-            currentPlayerID = (currentPlayerID + 1) % PLAYERS_AMOUNT;
+            //currentPlayerID = (currentPlayerID + 1) % PLAYERS_AMOUNT;
         }
     }
 
     public Player getCurrentPlayer() {
         return players[currentPlayerID];
+    }
+
+    public void changePlayer(){
+        currentPlayerID = (currentPlayerID + 1) % PLAYERS_AMOUNT;
     }
 
     public int getBoardSize() {
