@@ -62,6 +62,10 @@ public class BattleshipBoard {
                         ? i -> this.grid[x + i][y] = ship
                         : i -> this.grid[x][y + i] = ship
         );
+
+        // Update the ship's position.
+        ship.x = x;
+        ship.y = y;
     }
 
     private void cleanGridFromShip(Ship ship) {
