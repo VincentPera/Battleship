@@ -1,26 +1,31 @@
 package Game;
 
 import Game.Board.BattleshipBoard;
+import Game.Ship.Exception.InvalidAmountOfPlayersException;
 import Game.Ship.Ship;
 
 /**
  * @author Matthieu Le Boucher
  */
 public class Game {
-    private static final int BOARD_SIZE = 10;
-    private static final int PLAYERS_AMOUNT = 2;
+    public static final int BOARD_SIZE = 10;
+    public static final int PLAYERS_AMOUNT = 2;
 
-    public static void main(String[] args) {
+    private boolean gameOver = false;
+
+    public Game(String... playerNames) throws InvalidAmountOfPlayersException {
+        if(playerNames.length != PLAYERS_AMOUNT)
+            throw new InvalidAmountOfPlayersException();
+
+
         Player[] players = new Player[PLAYERS_AMOUNT];
 
         // Initialize players list.
-        players[0] = new Player("Matt", new BattleshipBoard(BOARD_SIZE));
-        players[1] = new Player("Bot", new BattleshipBoard(BOARD_SIZE));
-
-        assert players.length == PLAYERS_AMOUNT : "Some players were not initialized.";
+        for (int i = 0; i < PLAYERS_AMOUNT; i++) {
+            players[i] = new Player(playerNames[i], new BattleshipBoard(BOARD_SIZE));
+        }
 
         // Game loop setup.
-        boolean gameOver = false;
         int currentPlayerID = 0;
 
         // Setup turn to allow players to positionate their ships.
@@ -37,4 +42,6 @@ public class Game {
             currentPlayerID = (currentPlayerID + 1) % PLAYERS_AMOUNT;
         }
     }
+
+
 }

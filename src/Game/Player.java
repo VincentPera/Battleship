@@ -3,6 +3,8 @@ package Game;
 import Game.Board.BattleshipBoard;
 import Game.Ship.PlaneCarrier;
 import Game.Ship.Ship;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +21,7 @@ public class Player {
     /**
      * The player's name.
      */
-    private String name;
+    private StringProperty name;
 
     /**
      * The board on which the player is playing.
@@ -27,7 +29,7 @@ public class Player {
     private BattleshipBoard board;
 
     public Player(String name, BattleshipBoard board) {
-        this.name = name;
+        this.name = new SimpleStringProperty(name);
         this.board = board;
 
         this.ships = new ArrayList<>();
@@ -38,7 +40,15 @@ public class Player {
      * @return The player's name.
      */
     public String getName() {
+        return name.get();
+    }
+
+    public StringProperty nameProperty() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name.set(name);
     }
 
     public List<Ship> getShips() {

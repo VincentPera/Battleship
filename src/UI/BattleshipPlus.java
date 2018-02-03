@@ -1,5 +1,6 @@
-package Game;
+package UI;
 
+import Game.Game;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -18,6 +19,8 @@ public class BattleshipPlus extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
+
+    private Game game;
 
     @Override
     public void start(Stage primaryStage) {
@@ -63,6 +66,10 @@ public class BattleshipPlus extends Application {
             loader.setLocation(BattleshipPlus.class.getResource("/views/GameCreatorScene.fxml"));
             AnchorPane gameCreator = (AnchorPane) loader.load();
 
+            // Give the controller access to the main app.
+            GameCreationController controller = loader.getController();
+            controller.setMainApp(this);
+
             // Set person overview into the center of root layout.
             rootLayout.setCenter(gameCreator);
         } catch (IOException e) {
@@ -80,5 +87,13 @@ public class BattleshipPlus extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 }
