@@ -1,9 +1,7 @@
 package Game;
 
 import Game.Board.BattleshipBoard;
-import Game.Ship.PlaneCarrier;
-import Game.Ship.Ship;
-import Game.Ship.Submarine;
+import Game.Ship.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -33,7 +31,10 @@ public class Player {
         this.board = board;
         this.ships = FXCollections.observableArrayList();
         ships.add(new PlaneCarrier(Ship.Orientation.VERTICAL));
+        ships.add(new Cruiser(Ship.Orientation.VERTICAL));
+        ships.add(new CounterTorpedoBoat(Ship.Orientation.VERTICAL));
         ships.add(new Submarine(Ship.Orientation.VERTICAL));
+        ships.add(new TorpedoBoat(Ship.Orientation.VERTICAL));
     }
 
     /**

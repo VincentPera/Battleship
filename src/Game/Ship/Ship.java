@@ -56,6 +56,14 @@ public abstract class Ship {
         return currentHealth;
     }
 
+    public String toString(){
+        if(this.getOrientation() == Orientation.HORIZONTAL){
+            return "HORIZONTAL";
+        }else{
+            return "VERTICAL";
+        }
+    }
+
     /**
      * @return The range of the ship.
      */
@@ -79,12 +87,23 @@ public abstract class Ship {
     }
 
     public boolean canAttack(int x, int y) {
-        if(((this.orientation == Orientation.VERTICAL) && this.x == x)||((this.orientation == Orientation.HORIZONTAL) && this.y == y)){     // Case when the target is aligned with our ship
-            int alignedDistance = this.orientation == Orientation.VERTICAL ? Math.abs(this.y - y) : Math.abs(this.x - x);
-            return (alignedDistance<=this.getRange());
-        }else{                                                                                                                              // When our target is on our side
+        System.out.println("x : "+x);
+        System.out.println("y : "+y);
+        System.out.println("OR : "+this.toString());
+        System.out.println("my x : "+this.x);
+        System.out.println("my y : "+this.y);
+        if(((this.orientation == Orientation.VERTICAL) && this.x == x)||((this.orientation == Orientation.HORIZONTAL) && this.y == y)){
+            System.out.println("CAS1");                                                                                                     // Case when the target is aligned with our ship
+            if(this.getOrientation() == Orientation.VERTICAL){
+                return (this.y - this.getRange() <= y && y <= this.y+this.getLength()+this.getRange()-1);
+            }else{
+                return (this.x - this.getRange() <= x && x <= this.x+this.getLength()+this.getRange()-1);
+            }
+        }else{
+            System.out.println("CAS2");   // When our target is on our side
             if(this.getOrientation() == Orientation.HORIZONTAL){
-                int maxX = this.x + this.getLength();
+                System.out.println("CAS2/a");
+                int maxX = this.x + this.getLength()-1;
                 if((this.x <= x)&&(x <= maxX)){                                                                                             // if our target is on the length of the ship
                     int maxY = this.y + this.getRange();
                     int minY = this.y - this.getRange();
@@ -92,8 +111,9 @@ public abstract class Ship {
                         return true;
                     }
                 }
-            }else{                                                                                                                          // same for VERTICAL case
-                int maxY = this.y + this.getLength();
+            }else{
+                System.out.println("CAS2/b");// same for VERTICAL case
+                int maxY = this.y + this.getLength()-1;
                 if((this.y <= y)&&(y <= maxY)){
                     int maxX = this.x + this.getRange();
                     int minX = this.x - this.getRange();
@@ -103,7 +123,7 @@ public abstract class Ship {
                 }
             }
         }
-        return false;                                                                                                                       // Default case
+        return false;                                                                                                                     // Default case
     }
 
     /**

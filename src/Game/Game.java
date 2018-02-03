@@ -59,7 +59,7 @@ public class Game {
                         x = sc.nextInt();
                     }while (!((0 <= x)&&(x <= boardSize)));
                     do{
-                        System.out.print("Choose y (between 0 and " + (boardSize-expectedShips[shipPlaced].getLength()) + " ) : ");
+                        System.out.print("Choose y (between 0 and " + (boardSize-expectedShips[shipPlaced].getLength()) + ") : ");
                         y = sc.nextInt();
                     }while (!((0 <= y)&&(y <= (boardSize-expectedShips[shipPlaced].getLength()))));
                 }else{
@@ -68,7 +68,7 @@ public class Game {
                         x = sc.nextInt();
                     }while (!((0 <= x)&&(x <= (boardSize-expectedShips[shipPlaced].getLength()))));
                     do{
-                        System.out.print("Choose y (between 0 and " + boardSize + " ) : ");
+                        System.out.print("Choose y (between 0 and " + boardSize + ") : ");
                         y = sc.nextInt();
                     }while (!((0 <= y)&&(y <= boardSize)));
                 }

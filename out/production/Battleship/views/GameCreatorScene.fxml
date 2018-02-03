@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.GameCreationController">
+   <children>
+      <Label layoutX="75.0" layoutY="99.0" text="Nom joueur" textFill="#bc2020" />
+      <TextField fx:id="player1Name" layoutX="75.0" layoutY="129.0" text="Joueur 1" />
+      <Label layoutX="75.0" layoutY="192.0" text="Nom joueur" textFill="#228aba" />
+      <TextField fx:id="player2Name" layoutX="75.0" layoutY="219.0" text="Joueur 2" />
+      <Button id="createButton" layoutX="326.0" layoutY="161.0" mnemonicParsing="false" onAction="#createButtonClicked" prefHeight="40.0" prefWidth="130.0" text="Démarrer la partie" textFill="#6f4d4d">
+      </Button>
+      <Label fx:id="errorLabel" layoutX="300.0" layoutY="219.0" prefHeight="50.0" prefWidth="184.0" textAlignment="CENTER" textFill="#bc2020" wrapText="true">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+   </children>
+</AnchorPane>

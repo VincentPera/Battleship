@@ -165,7 +165,7 @@ public class GameBoardController {
                         infoLabel.setText("Cible hors de portée de votre " + firingShip.getName());
                 } else if(shipBeingMoved != null) {
                     // If a ship is being placed.
-                    mainApp.getGame().getCurrentPlayer().getBoard().placeShipAt(shipBeingMoved, x - 1, y - 1);
+                    mainApp.getGame().getCurrentPlayer().getBoard().placeShipAt(shipBeingMoved, x-1, y-1 );
                     refreshGameBoard();
                 }
 
@@ -203,10 +203,15 @@ public class GameBoardController {
         pane.setOnScroll((ScrollEvent e) -> {
             if(shipBeingMoved != null) {
                 try {
-                    if (e.getDeltaY() < 0)
+                    if (e.getDeltaY() < 0){
                         shipBeingMoved.setOrientation(Ship.Orientation.VERTICAL);
-                    else
+                        System.out.println("VERTICAL");
+                    }else{
                         shipBeingMoved.setOrientation(Ship.Orientation.HORIZONTAL);
+                        System.out.println("HORIZONTAL");
+                    }
+
+
 
                     mainApp.getGame().getCurrentPlayer().getBoard().placeShipAt(shipBeingMoved, x - 1, y - 1);
                 } catch (InvalidMoveException e1) {

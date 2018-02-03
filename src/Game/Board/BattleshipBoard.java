@@ -67,8 +67,8 @@ public class BattleshipBoard {
         );
 
         // Update the ship's position.
-        ship.x = x;
-        ship.y = y;
+        ship.x = x+1;
+        ship.y = y+1;
         ship.placed = true;
     }
 
