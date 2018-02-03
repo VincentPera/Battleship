@@ -2,10 +2,12 @@ package UI;
 
 import Game.Ship.Exception.InvalidMoveException;
 import Game.Ship.Ship;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -26,6 +28,9 @@ public class GameBoardController {
     private Label errorLabel;
 
     @FXML
+    private Label infoLabel;
+
+    @FXML
     private Label currentPlayer;
 
     @FXML
@@ -34,13 +39,33 @@ public class GameBoardController {
     @FXML
     private ListView<Ship> shipsList;
 
+    @FXML
+    private Button endTurnButton;
+
+    @FXML
+    private Button fireButton;
+
     private BattleshipPlus mainApp;
 
     private String shipPlacementColor = "#00ff00";
 
+    private String fireFailColor = "#ff0000";
+
+    private String fireSuccessColor = "#00ff00";
+
+    private String targetCellColor = "#ff0f0f";
+
     private String emptyCellColor = "#ffffff";
 
     private Ship shipBeingMoved;
+
+    private Ship firingShip;
+
+    private int targetX, targetY;
+
+    private boolean isInFiringProcess = false;
+
+    private boolean isTargetPositionSet = false;
 
     /**
      * The constructor.
@@ -125,7 +150,7 @@ public class GameBoardController {
                 // We're at the head of the ship: darken its color.
                 pane.setStyle("-fx-background-color: #"
                         + Integer.toHexString(
-                                (int) (Long.parseLong(shipHere.getColor().substring(1), 16) & 0xfefefe) >> 1));
+                        (int) (Long.parseLong(shipHere.getColor().substring(1), 16) & 0xfefefe) >> 1));
             }
         } else {
             pane.setStyle("-fx-background-color: " + emptyCellColor);
@@ -133,12 +158,18 @@ public class GameBoardController {
 
         pane.setOnMouseEntered(e -> {
             try {
-                if(shipBeingMoved != null) {
+                if(isInFiringProcess && firingShip != null) {
+                    if(firingShip.canAttack(x, y)) {
+                        infoLabel.setText(firingShip.getName() + " vise en\n(" + x + ", " + (char) ((char) 64 + y) + ")");
+                    } else
+                        infoLabel.setText("Cible hors de portée de votre " + firingShip.getName());
+                } else if(shipBeingMoved != null) {
                     // If a ship is being placed.
                     mainApp.getGame().getCurrentPlayer().getBoard().placeShipAt(shipBeingMoved, x - 1, y - 1);
-
                     refreshGameBoard();
                 }
+
+
             } catch (InvalidMoveException e1) {
                 errorLabel.setText(shipBeingMoved.getName() + " ne peut pas être placé ici.");
                 errorOccurred.set(true);
@@ -146,10 +177,27 @@ public class GameBoardController {
         });
 
         pane.setOnMousePressed(e -> {
-            if(shipBeingMoved == null) {
-                shipBeingMoved = shipHere;
-            } else
-                shipBeingMoved = null;
+            if(isInFiringProcess) {
+                if(firingShip != null) {
+                    if(firingShip.canAttack(x, y)) {
+                        targetX = x;
+                        targetY = y;
+                        isTargetPositionSet = true;
+                        fireButton.setText("Tirer en (" + x + ", " + (char) ((char) 64 + y) + ")");
+                    } else
+                        infoLabel.setText("Cible hors de portée de votre " + firingShip.getName());
+                } else {
+                    firingShip = shipHere;
+
+                    if(firingShip != null)
+                        infoLabel.setText(firingShip.getName() + " sélectionné. Pointez une cible !");
+                }
+            } else {
+                if (shipBeingMoved == null)
+                    shipBeingMoved = shipHere;
+                else
+                    shipBeingMoved = null;
+            }
         });
 
         pane.setOnScroll((ScrollEvent e) -> {
@@ -171,6 +219,11 @@ public class GameBoardController {
         if(!errorOccurred.get())
             errorLabel.setText("");
 
+        if(endTurnButton.isDisabled() && mainApp.getGame().getCurrentPlayer().allShipsPlaced()) {
+            endTurnButton.setDisable(false);
+            fireButton.setDisable(false);
+        }
+
         gameBoard.add(pane, x, y);
     }
 
@@ -189,5 +242,21 @@ public class GameBoardController {
         Integer colIndex = GridPane.getColumnIndex(source);
         Integer rowIndex = GridPane.getRowIndex(source);
         System.out.printf("Mouse entered cell [%d, %d]%n", colIndex.intValue(), rowIndex.intValue());
+    }
+
+    @FXML
+    private void endTurnButtonClicked(ActionEvent f) {
+        if(!mainApp.getGame().getCurrentPlayer().allShipsPlaced())
+            errorLabel.setText("Vous devez placer tous vos navires.");
+    }
+
+    @FXML
+    private void endFireButtonClicked(ActionEvent f) {
+        isInFiringProcess = true;
+
+        if(isTargetPositionSet) {
+
+        }
+        infoLabel.setText("Choisissez un navire pour tirer !");
     }
 }

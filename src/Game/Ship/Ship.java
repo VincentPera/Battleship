@@ -47,6 +47,8 @@ public abstract class Ship {
      */
     public int x, y;
 
+    public boolean placed = false;
+
     /**
      * @return The current health of the ship.
      */

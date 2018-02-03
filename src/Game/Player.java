@@ -3,6 +3,7 @@ package Game;
 import Game.Board.BattleshipBoard;
 import Game.Ship.PlaneCarrier;
 import Game.Ship.Ship;
+import Game.Ship.Submarine;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -31,6 +32,8 @@ public class Player {
         this.name = new SimpleStringProperty(name);
         this.board = board;
         this.ships = FXCollections.observableArrayList();
+        ships.add(new PlaneCarrier(Ship.Orientation.VERTICAL));
+        ships.add(new Submarine(Ship.Orientation.VERTICAL));
     }
 
     /**
@@ -58,5 +61,11 @@ public class Player {
 
     public BattleshipBoard getBoard() {
         return board;
+    }
+
+    public boolean allShipsPlaced() {
+        int amount = (int) ships.stream().filter(ship -> ship.placed).count();
+
+        return amount == ships.size();
     }
 }

@@ -1,12 +1,9 @@
 package Game;
 
 import Game.Board.BattleshipBoard;
-import Game.Ship.Exception.InvalidAmountOfPlayersException;
-import Game.Ship.Ship;
 import Game.Ship.*;
-import Game.Ship.Exception.InvalidMoveException;
-import com.sun.org.apache.xpath.internal.SourceTree;
-import java.util.ArrayList;
+import Game.Ship.Exception.InvalidAmountOfPlayersException;
+
 import java.util.Scanner;
 
 /**
@@ -41,7 +38,7 @@ public class Game {
 
         // Setup turn to allow players to positionate their ships.
 
-        for(int i = 0; i < players.length; i++) {                                                   //todo Change when UI available (currently console version)
+        /*for(int i = 0; i < players.length; i++) {                                                   //todo Change when UI available (currently console version)
             System.out.print("\nPlayer " + players[i].getName() + "is now positioning his ships.");
             int shipPlaced = 0;
             while(shipPlaced<SHIP_PER_PLAYER){
@@ -113,7 +110,7 @@ public class Game {
                     System.out.println("Oops ! Wrong move !");
                 }
             }
-        }
+        }*/
 
         // Game loop.
         while(isGameStarted() && !gameOver) {

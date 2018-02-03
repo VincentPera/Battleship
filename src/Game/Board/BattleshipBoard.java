@@ -69,6 +69,7 @@ public class BattleshipBoard {
         // Update the ship's position.
         ship.x = x;
         ship.y = y;
+        ship.placed = true;
     }
 
     private void cleanGridFromShip(Ship ship) {
