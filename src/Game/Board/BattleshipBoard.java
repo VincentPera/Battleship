@@ -49,10 +49,31 @@ public class BattleshipBoard {
             throw new InvalidMoveException();
 
         // If this is a valid position, place the ship along the row or column with respect to its orientation.
+        cleanGridFromShip(ship);
         IntStream.range(0, ship.getLength()).forEach(
                 ship.getOrientation() == Ship.Orientation.HORIZONTAL
                         ? i -> this.grid[x + i][y] = ship
                         : i -> this.grid[x][y + i] = ship
         );
+    }
+
+    private void cleanGridFromShip(Ship ship) {
+        for (int x = 0; x < gridSize; x++) {
+            for (int y = 0; y < gridSize; y++) {
+                if(grid[x][y] == ship)
+                    grid[x][y] = null;
+            }
+        }
+    }
+
+    /**
+     * Returns the ship living at (x, y) if it exists.
+     *
+     * @param x     Assumed to be within [1, gridSize]
+     * @param y     Assumed to be within [1, gridSize]
+     * @return
+     */
+    public Ship getShipAt(int x, int y) {
+        return grid[x - 1][y - 1];
     }
 }
