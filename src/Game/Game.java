@@ -8,10 +8,11 @@ import Game.Ship.Ship;
  * @author Matthieu Le Boucher
  */
 public class Game {
-    public static final int BOARD_SIZE = 10;
+    private final int boardSize = 10;
     public static final int PLAYERS_AMOUNT = 2;
 
     private boolean gameOver = false;
+    private boolean gameStarted = false;
 
     public Game(String... playerNames) throws InvalidAmountOfPlayersException {
         if(playerNames.length != PLAYERS_AMOUNT)
@@ -22,7 +23,7 @@ public class Game {
 
         // Initialize players list.
         for (int i = 0; i < PLAYERS_AMOUNT; i++) {
-            players[i] = new Player(playerNames[i], new BattleshipBoard(BOARD_SIZE));
+            players[i] = new Player(playerNames[i], new BattleshipBoard(boardSize));
         }
 
         // Game loop setup.
@@ -36,12 +37,22 @@ public class Game {
         }
 
         // Game loop.
-        while(!gameOver) {
+        while(isGameStarted() && !gameOver) {
             // Ask for
             // Update current player ID to next player.
             currentPlayerID = (currentPlayerID + 1) % PLAYERS_AMOUNT;
         }
     }
 
+    public int getBoardSize() {
+        return boardSize;
+    }
 
+    public boolean isGameStarted() {
+        return gameStarted;
+    }
+
+    public void setGameStarted(boolean gameStarted) {
+        this.gameStarted = gameStarted;
+    }
 }

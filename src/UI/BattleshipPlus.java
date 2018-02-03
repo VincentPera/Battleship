@@ -8,15 +8,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
 
 /**
  * @author Matthieu Le Boucher
  */
 public class BattleshipPlus extends Application {
-
-
     private Stage primaryStage;
     private BorderPane rootLayout;
 
@@ -26,9 +23,6 @@ public class BattleshipPlus extends Application {
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Battleship+");
-
-        File directory = new File("./resources/views/GameCreatorScene.fxml");
-        System.out.println(directory.getAbsolutePath());
 
         initRootLayout();
 
@@ -69,6 +63,31 @@ public class BattleshipPlus extends Application {
             // Give the controller access to the main app.
             GameCreationController controller = loader.getController();
             controller.setMainApp(this);
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(gameCreator);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Shows the person overview inside the root layout.
+     */
+    public void showGameBoard() {
+
+        try {
+            // Load person overview.
+            System.out.println(1);
+            FXMLLoader loader = new FXMLLoader();
+
+            loader.setLocation(BattleshipPlus.class.getResource("/views/GameScene.fxml"));
+            AnchorPane gameCreator = (AnchorPane) loader.load();
+
+            // Give the controller access to the main app.
+            GameBoardController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setUpBoard();
 
             // Set person overview into the center of root layout.
             rootLayout.setCenter(gameCreator);

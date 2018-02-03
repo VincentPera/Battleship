@@ -54,6 +54,7 @@ public class GameCreationController {
             try {
                 Game game = new Game(player1Name.getText(), player2Name.getText());
                 mainApp.setGame(game);
+                mainApp.showGameBoard();
             } catch (InvalidAmountOfPlayersException e) {
                 errorLabel.setText("Nombre de joueurs incompatible avec le jeu " +
                         "(" + Game.PLAYERS_AMOUNT + " joueur(s) attendus).");
