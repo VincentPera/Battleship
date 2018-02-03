@@ -33,6 +33,11 @@ public abstract class Ship {
     protected Orientation orientation;
 
     /**
+     * The name of the ship.
+     */
+    protected String name;
+
+    /**
      * Current position of the ship.
      */
     public int x, y;
@@ -113,5 +118,9 @@ public abstract class Ship {
         // If the movement is valid, change the current position to target position.
         this.x = x;
         this.y = y;
+    }
+
+    public String getName() {
+        return name;
     }
 }

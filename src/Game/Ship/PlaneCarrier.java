@@ -9,5 +9,6 @@ public class PlaneCarrier extends Ship {
         this.length = 5;
         this.currentHealth = 5;
         this.range = 2;
+        this.name = "Porte-avion";
     }
 }

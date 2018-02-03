@@ -55,7 +55,7 @@ public class GameBoardController {
                 if (empty || ship == null) {
                     setText(null);
                 } else {
-                    setText(ship.getClass().getName() + " (" + ship.getLength() + " cases)");
+                    setText(ship.getName() + " (" + ship.getLength() + " cases)");
                 }
             }
         });

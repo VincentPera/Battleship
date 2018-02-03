@@ -9,5 +9,6 @@ public class Cruiser extends Ship {
         this.length = 4;
         this.currentHealth = 4;
         this.range = 2;
+        this.name = "Croiseur";
     }
 }

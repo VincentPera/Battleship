@@ -9,5 +9,6 @@ public class CounterTorpedoBoat extends Ship {
         this.length = 3;
         this.currentHealth = 3;
         this.range = 2;
+        this.name = "Contre-torpilleur";
     }
 }

@@ -9,5 +9,6 @@ public class Submarine extends Ship {
         this.length = 3;
         this.currentHealth = 3;
         this.range = 4;
+        this.name = "Sous-marin";
     }
 }
