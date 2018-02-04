@@ -60,6 +60,8 @@ public class GameBoardController {
 
     private Ship shipBeingMoved;
 
+    private Boolean shipsCanMove = true;
+
     private Ship firingShip;
 
     private int targetX, targetY;
@@ -164,7 +166,7 @@ public class GameBoardController {
                         infoLabel.setText(firingShip.getName() + " vise en\n(" + x + ", " + (char) ((char) 64 + y) + ")");
                     } else
                         infoLabel.setText("Cible hors de portée de votre " + firingShip.getName());
-                } else if(shipBeingMoved != null) {
+                } else if(shipBeingMoved != null && shipsCanMove) {
                     // If a ship is being placed.
                     mainApp.getGame().getCurrentPlayer().getBoard().placeShipAt(shipBeingMoved, x-1, y-1 );
                     refreshGameBoard();
