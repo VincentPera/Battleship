@@ -163,4 +163,17 @@ public abstract class Ship {
         this.currentHealth--;
     }
 
+    public boolean checkDistance(int x, int y){
+        if(this.getOrientation() == Orientation.VERTICAL){
+            System.out.println("VERTICAL");
+            System.out.println("My x : "+this.x);
+            System.out.println("To x : "+x);
+            System.out.println("My y : "+this.y);
+            System.out.println("To y : "+y);
+            return (this.x == x && (Math.abs(this.y - y)<= 2));
+        }else{
+            return (this.y == y && (Math.abs(this.x - x)<= 2));
+        }
+    }
+
 }

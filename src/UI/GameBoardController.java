@@ -60,7 +60,9 @@ public class GameBoardController {
 
     private Ship shipBeingMoved;
 
-    private Boolean shipsCanMove = true;
+    private Boolean shipsCanMove = false;
+
+    private boolean shipsCanBePlaced = true;
 
     private Ship firingShip;
 
@@ -134,10 +136,9 @@ public class GameBoardController {
                 addPane(i, j);
             }
         }
-
         shipsList.setItems(mainApp.getGame().getCurrentPlayer().getShips());
         fireButton.setText("Planifier un tir !");
-
+        infoLabel.setText("");
     }
 
     private void addPane(int x, int y) {
@@ -168,6 +169,15 @@ public class GameBoardController {
                         infoLabel.setText("Cible hors de portée de votre " + firingShip.getName());
                 } else if(shipBeingMoved != null && shipsCanMove) {
                     // If a ship is being placed.
+                    if(shipBeingMoved.checkDistance(x,y)){
+                        infoLabel.setText("Vous pouvez placer le bateau ici !");
+                        errorLabel.setText("");
+                    }else{
+                        errorLabel.setText("Vous ne pouvez pas placer le bateau ici !");
+                        infoLabel.setText("");
+                    }
+
+                }else if(shipBeingMoved != null && shipsCanBePlaced){
                     mainApp.getGame().getCurrentPlayer().getBoard().placeShipAt(shipBeingMoved, x-1, y-1 );
                     refreshGameBoard();
                 }
@@ -180,26 +190,43 @@ public class GameBoardController {
         });
 
         pane.setOnMousePressed(e -> {
-            if(isInFiringProcess) {
-                if(firingShip != null) {
-                    if(firingShip.canAttack(x, y)) {
-                        targetX = x;
-                        targetY = y;
-                        isTargetPositionSet = true;
-                        fireButton.setText("Tirer en (" + x + ", " + (char) ((char) 64 + y) + ")");
-                    } else
-                        infoLabel.setText("Cible hors de portée de votre " + firingShip.getName());
-                } else {
-                    firingShip = shipHere;
+            try {
+                if (isInFiringProcess) {
+                    if (firingShip != null) {
+                        if (firingShip.canAttack(x, y)) {
+                            targetX = x;
+                            targetY = y;
+                            isTargetPositionSet = true;
+                            fireButton.setText("Tirer en (" + x + ", " + (char) ((char) 64 + y) + ")");
+                        } else
+                            infoLabel.setText("Cible hors de portée de votre " + firingShip.getName());
+                    } else {
+                        firingShip = shipHere;
 
-                    if(firingShip != null)
-                        infoLabel.setText(firingShip.getName() + " sélectionné. Pointez une cible !");
+                        if (firingShip != null)
+                            infoLabel.setText(firingShip.getName() + " sélectionné. Pointez une cible !");
+                    }
+                } else if (shipBeingMoved != null && shipsCanMove) {
+                    // If a ship is being placed.
+                    if (shipBeingMoved.checkDistance(x, y)) {
+                        mainApp.getGame().getCurrentPlayer().getBoard().placeShipAt(shipBeingMoved, x - 1, y - 1);
+                        infoLabel.setText("Vous pouvez placer le bateau ici !");
+                        shipsCanMove = false;
+                        refreshGameBoard();
+                        fireButton.setDisable(true);
+                    } else {
+                        errorLabel.setText("Vous ne pouvez pas placer le bateau ici !");
+                    }
+
+                } else {
+                    if (shipBeingMoved == null)
+                        shipBeingMoved = shipHere;
+                    else
+                        shipBeingMoved = null;
                 }
-            } else {
-                if (shipBeingMoved == null)
-                    shipBeingMoved = shipHere;
-                else
-                    shipBeingMoved = null;
+            }catch (InvalidMoveException e1){
+                errorLabel.setText(shipBeingMoved.getName() + " ne peut pas être placé ici.");
+                errorOccurred.set(true);
             }
         });
 
@@ -267,6 +294,7 @@ public class GameBoardController {
 
     @FXML
     private void endFireButtonClicked(ActionEvent f) {
+        shipsCanBePlaced = false;
         shipsCanMove = false;
         isInFiringProcess = true;
         infoLabel.setText("Choisissez un navire pour tirer !");
@@ -276,26 +304,28 @@ public class GameBoardController {
             fireButton.setText("Tir effectué !");
             System.out.println("allo ?");
             Player other = mainApp.getGame().getOtherPlayer();
-            for (Ship s: other.getShips()
-                 ) {
+            for (Ship s: other.getShips()) {
                 if(other.shipIsHit(s, targetX, targetY)){
                     hitSomething = true;
                     System.out.println("OUIII");
                     s.decreaseLife();
-                    infoLabel.setText(s.getName()+" ennemi touché !");
+                    infoLabel.setText("Navire ennemi touché !");
                     if(s.getCurrentHealth() == 0){
                         other.killShip(s);
                         mainApp.getGame().getOtherPlayer().getBoard().cleanGridFromShip(s);
                         if(!other.isShipsListEmpty()){
-                            infoLabel.setText(s.getName()+" ennemi touché et coulé !");
+                            infoLabel.setText("Navire ennemi touché et coulé !");
                         }else{
                             infoLabel.setText("Le denrier navire adverse a été coulé ! VICTOIRE !");
+                            fireButton.setDisable(true);
+                            endTurnButton.setDisable(true);
                         }
                     }
                 }
             }
             if(!hitSomething){
                 shipsCanMove = true;
+                infoLabel.setText("Aucun navire touché, vous pouvez déplacer un bateau de 2 cases sur sa longueur maximum!");
             }
             isInFiringProcess = false;
             firingShip = null;
