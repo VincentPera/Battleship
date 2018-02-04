@@ -267,9 +267,11 @@ public class GameBoardController {
 
     @FXML
     private void endFireButtonClicked(ActionEvent f) {
+        shipsCanMove = false;
         isInFiringProcess = true;
         infoLabel.setText("Choisissez un navire pour tirer !");
         if(isTargetPositionSet) {
+            boolean hitSomething = false;
             fireButton.setDisable(true);
             fireButton.setText("Tir effectué !");
             System.out.println("allo ?");
@@ -277,6 +279,7 @@ public class GameBoardController {
             for (Ship s: other.getShips()
                  ) {
                 if(other.shipIsHit(s, targetX, targetY)){
+                    hitSomething = true;
                     System.out.println("OUIII");
                     s.decreaseLife();
                     infoLabel.setText("Navire ennemi touché !");
@@ -293,9 +296,13 @@ public class GameBoardController {
                     }
                 }
             }
+            if(!hitSomething){
+                shipsCanMove = true;
+            }
             isInFiringProcess = false;
             firingShip = null;
             isTargetPositionSet = false;
+            fireButton.setDisable(true);
         }
 
     }
