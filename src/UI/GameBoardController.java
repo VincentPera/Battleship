@@ -134,7 +134,7 @@ public class GameBoardController {
         }
 
         shipsList.setItems(mainApp.getGame().getCurrentPlayer().getShips());
-
+        fireButton.setText("Planifier un tir !");
 
     }
 
@@ -269,6 +269,7 @@ public class GameBoardController {
 
         if(isTargetPositionSet) {
             fireButton.setDisable(true);
+            fireButton.setText("Tir effectué !");
             System.out.println("allo ?");
             Player other = mainApp.getGame().getOtherPlayer();
             for (Ship s: other.getShips()
