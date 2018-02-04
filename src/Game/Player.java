@@ -72,6 +72,10 @@ public class Player {
         }
     }
 
+    public Boolean isShipsListEmpty() {
+        return ships.isEmpty();
+    }
+
     public void setName(String name) {
         this.name.set(name);
     }

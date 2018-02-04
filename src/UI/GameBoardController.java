@@ -281,7 +281,13 @@ public class GameBoardController {
                     if(s.getCurrentHealth() == 0){
                         other.killShip(s);
                         mainApp.getGame().getOtherPlayer().getBoard().cleanGridFromShip(s);
-                        infoLabel.setText("Navire ennemi touché et coulé !");
+                        if(!other.isShipsListEmpty()){
+                            infoLabel.setText("Navire ennemi touché et coulé !");
+                        }else{
+                            infoLabel.setText("Le denrier navire adverse a été coulé ! VICTOIRE !");
+                        }
+
+
                     }
                 }
             }
