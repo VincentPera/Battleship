@@ -45,7 +45,7 @@ public class BattleshipPlus extends Application {
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 
@@ -68,7 +68,7 @@ public class BattleshipPlus extends Application {
             // Set person overview into the center of root layout.
             rootLayout.setCenter(gameCreator);
         } catch (IOException e) {
-            e.printStackTrace();
+            //.printStackTrace();
         }
     }
 
@@ -93,7 +93,7 @@ public class BattleshipPlus extends Application {
             // Set person overview into the center of root layout.
             rootLayout.setCenter(gameCreator);
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 

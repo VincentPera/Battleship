@@ -72,7 +72,7 @@ public class BattleshipBoard {
         ship.placed = true;
     }
 
-    private void cleanGridFromShip(Ship ship) {
+    public void cleanGridFromShip(Ship ship) {
         for (int x = 0; x < gridSize; x++) {
             for (int y = 0; y < gridSize; y++) {
                 if(grid[x][y] == ship)

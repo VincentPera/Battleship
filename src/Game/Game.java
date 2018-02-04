@@ -124,9 +124,15 @@ public class Game {
         return players[currentPlayerID];
     }
 
+    public Player getOtherPlayer() {
+        return players[(currentPlayerID + 1) % PLAYERS_AMOUNT];
+    }
+
     public void changePlayer(){
         currentPlayerID = (currentPlayerID + 1) % PLAYERS_AMOUNT;
     }
+
+
 
     public int getBoardSize() {
         return boardSize;
@@ -134,6 +140,14 @@ public class Game {
 
     public boolean isGameStarted() {
         return gameStarted;
+    }
+
+    public boolean gameIsReady(){
+        boolean placed = true;
+        for (Player p : players) {
+            placed = placed && p.allShipsPlaced();
+        }
+        return placed;
     }
 
     public void setGameStarted(boolean gameStarted) {

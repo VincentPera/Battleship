@@ -1,5 +1,6 @@
 package UI;
 
+import Game.Player;
 import Game.Ship.Exception.InvalidMoveException;
 import Game.Ship.Ship;
 import javafx.event.ActionEvent;
@@ -226,6 +227,8 @@ public class GameBoardController {
 
         if(endTurnButton.isDisabled() && mainApp.getGame().getCurrentPlayer().allShipsPlaced()) {
             endTurnButton.setDisable(false);
+        }
+        if(fireButton.isDisabled()&&mainApp.getGame().gameIsReady()){
             fireButton.setDisable(false);
         }
 
@@ -265,7 +268,23 @@ public class GameBoardController {
         isInFiringProcess = true;
 
         if(isTargetPositionSet) {
-
+            fireButton.setDisable(true);
+            System.out.println("allo ?");
+            Player other = mainApp.getGame().getOtherPlayer();
+            for (Ship s: other.getShips()
+                 ) {
+                if(other.shipIsHit(s, targetX, targetY)){
+                    System.out.println("OUIII");
+                    s.decreaseLife();
+                    if(s.getCurrentHealth() == 0){
+                        other.killShip(s);
+                        mainApp.getGame().getOtherPlayer().getBoard().cleanGridFromShip(s);
+                    }
+                }
+            }
+            isInFiringProcess = false;
+            firingShip = null;
+            isTargetPositionSet = false;
         }
         infoLabel.setText("Choisissez un navire pour tirer !");
     }
