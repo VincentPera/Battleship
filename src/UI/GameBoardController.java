@@ -102,7 +102,6 @@ public class GameBoardController {
         shipsList.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> {
                     shipBeingMoved = newValue;
-                    System.out.println("Now moving " + shipBeingMoved.getName());
                 });
     }
 
