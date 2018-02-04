@@ -266,7 +266,7 @@ public class GameBoardController {
     @FXML
     private void endFireButtonClicked(ActionEvent f) {
         isInFiringProcess = true;
-
+        infoLabel.setText("Choisissez un navire pour tirer !");
         if(isTargetPositionSet) {
             fireButton.setDisable(true);
             fireButton.setText("Tir effectué !");
@@ -277,9 +277,11 @@ public class GameBoardController {
                 if(other.shipIsHit(s, targetX, targetY)){
                     System.out.println("OUIII");
                     s.decreaseLife();
+                    infoLabel.setText("Navire ennemi touché !");
                     if(s.getCurrentHealth() == 0){
                         other.killShip(s);
                         mainApp.getGame().getOtherPlayer().getBoard().cleanGridFromShip(s);
+                        infoLabel.setText("Navire ennemi touché et coulé !");
                     }
                 }
             }
@@ -287,6 +289,6 @@ public class GameBoardController {
             firingShip = null;
             isTargetPositionSet = false;
         }
-        infoLabel.setText("Choisissez un navire pour tirer !");
+
     }
 }
