@@ -31,10 +31,10 @@ public class Player {
         this.board = board;
         this.ships = FXCollections.observableArrayList();
         ships.add(new PlaneCarrier(Ship.Orientation.VERTICAL));
-        /*ships.add(new Cruiser(Ship.Orientation.VERTICAL));
+        ships.add(new Cruiser(Ship.Orientation.VERTICAL));
         ships.add(new CounterTorpedoBoat(Ship.Orientation.VERTICAL));
         ships.add(new Submarine(Ship.Orientation.VERTICAL));
-        ships.add(new TorpedoBoat(Ship.Orientation.VERTICAL));*/
+        ships.add(new TorpedoBoat(Ship.Orientation.VERTICAL));
     }
 
     /**

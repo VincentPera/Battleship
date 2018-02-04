@@ -282,17 +282,15 @@ public class GameBoardController {
                     hitSomething = true;
                     System.out.println("OUIII");
                     s.decreaseLife();
-                    infoLabel.setText("Navire ennemi touché !");
+                    infoLabel.setText(s.getName()+" ennemi touché !");
                     if(s.getCurrentHealth() == 0){
                         other.killShip(s);
                         mainApp.getGame().getOtherPlayer().getBoard().cleanGridFromShip(s);
                         if(!other.isShipsListEmpty()){
-                            infoLabel.setText("Navire ennemi touché et coulé !");
+                            infoLabel.setText(s.getName()+" ennemi touché et coulé !");
                         }else{
                             infoLabel.setText("Le denrier navire adverse a été coulé ! VICTOIRE !");
                         }
-
-
                     }
                 }
             }
