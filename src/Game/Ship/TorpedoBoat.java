@@ -8,7 +8,7 @@ public class TorpedoBoat extends Ship {
         this.orientation = orientation;
         this.name = "Torpedo Boat";
         this.length = 2;
-        this.currentHealth = 2;
+        this.currentHealth = 3;
         this.range = 5;
         this.name = "Torpilleur";
     }

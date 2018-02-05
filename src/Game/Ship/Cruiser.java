@@ -8,7 +8,7 @@ public class Cruiser extends Ship {
         this.orientation = orientation;
         this.name = "Cruiser";
         this.length = 4;
-        this.currentHealth = 4;
+        this.currentHealth = 3;
         this.range = 2;
         this.name = "Croiseur";
     }
